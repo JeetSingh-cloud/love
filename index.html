@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday - My Situtationship</title>
+  <style>
+    /* Fullscreen black night sky */
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      overflow: hidden;
+      background: #000011;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    p {
+      font-size: 1.5em;
+      max-width: 600px;
+      margin: 0 20px 40px;
+      text-shadow: 0 0 5px #ddd;
+    }
+
+    a {
+      color: #aaf;
+      font-size: 1.3em;
+      text-decoration: none;
+      border: 2px solid #aaf;
+      padding: 10px 25px;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    a:hover {
+      background-color: #aaf;
+      color: #000;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday,Roshni</h1>
+  <p>Even miles apart, you light up my world like these endless stars.<br>
+     Here'to us,My love and care for you in the video </p>
+  <a href="video.html"> Video</a>
+
+  <canvas id="stars"></canvas>
+
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let starsArray = [];
+
+    function init() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      starsArray = [];
+
+      const starCount = 500;  // Increased stars count from 200 to 500
+
+      for(let i = 0; i < starCount; i++) {
+        starsArray.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.2,
+          alpha: Math.random(),
+          alphaChange: 0.005 + Math.random() * 0.01
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      for(let star of starsArray) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
+
+        star.alpha += star.alphaChange;
+        if(star.alpha <= 0 || star.alpha >= 1) {
+          star.alphaChange = -star.alphaChange;
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', init);
+
+    init();
+    draw();
+  </script>
+
+  <!-- Spotify Music Embed (hidden) -->
+   <div style="margin-top: 40px;">
+  <iframe
+    src="https://open.spotify.com/embed/track/79JG7IEUyKn8rEkeT4VFbM?autoplay=0&loop=1"
+    width="300"
+    height="80"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowtransparency="true"
+    style="border-radius:12px;">
+  </iframe>
+</div> 
+</div>
+  </iframe>
+</body>
+</html>
