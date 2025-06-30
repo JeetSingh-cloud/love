@@ -89,48 +89,53 @@
   </div>
 
   <script>
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let width, height, starsArray = [];
+    <script>
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let starsArray = [];
 
-    function init() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      starsArray = [];
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
 
-      const starCount = 300;
-
-      for (let i = 0; i < starCount; i++) {
-        starsArray.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 1.2,
-          alpha: Math.random(),
-          alphaChange: 0.003 + Math.random() * 0.005
-        });
-      }
+  function initStars() {
+    const starCount = 300;
+    starsArray = [];
+    for (let i = 0; i < starCount; i++) {
+      starsArray.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.8 + 0.6, // bigger stars
+        alpha: Math.random() * 0.8 + 0.2,  // make them visible
+        alphaChange: 0.002 + Math.random() * 0.004
+      });
     }
+  }
 
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      for (let star of starsArray) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctx.fill();
-        star.alpha += star.alphaChange;
-        if (star.alpha <= 0 || star.alpha >= 1) {
-          star.alphaChange *= -1;
-        }
-      }
-      requestAnimationFrame(draw);
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let star of starsArray) {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+      ctx.fill();
+
+      star.alpha += star.alphaChange;
+      if (star.alpha <= 0.2 || star.alpha >= 1) star.alphaChange *= -1;
     }
+    requestAnimationFrame(drawStars);
+  }
 
-    window.addEventListener('resize', init);
-    init();
-    draw();
+  function startCanvas() {
+    resizeCanvas();
+    initStars();
+    drawStars();
+  }
+
+  window.addEventListener('resize', startCanvas);
+  window.addEventListener('load', startCanvas);
+</script>
   </script>
 </body>
 </html>
