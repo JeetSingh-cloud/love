@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Song & Video</title>
+  <style>
+    body {
+      background: #111022;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      height: 100vh;
+      margin: 0;
+      overflow-y: auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #99ccff;
+    }
+
+    input[type="file"] {
+      margin-bottom: 20px;
+      color: #eee;
+      background: #222244;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    video {
+      max-width: 90vw;
+      max-height: 60vh;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #5599ffaa;
+      margin-bottom: 20px;
+    }
+
+    audio {
+      width: 90vw;
+      outline: none;
+      margin-top: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 15px #5599ffaa;
+    }
+
+    a {
+      color: #99ccff;
+      font-size: 1.2em;
+      text-decoration: none;
+      margin-top: 10px;
+      border: 1.5px solid #99ccff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    a:hover {
+      background-color: #99ccff;
+      color: #111022;
+    }
+  </style>
+</head>
+<body>
+  <h2>Upload & Play Our Video</h2>
+  <input type="file" id="videoUpload" accept="video/*" />
+  <video id="videoPlayer" controls></video>
+  
+  <audio controls autoplay loop>
+    <source src="your-song.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <a href="index.html">Back to Wish Page</a>
+
+  <script>
+    const videoUpload = document.getElementById('videoUpload');
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    videoUpload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if(file) {
+        const videoURL = URL.createObjectURL(file);
+        videoPlayer.src = videoURL;
+        videoPlayer.play();
+      }
+    });
+  </script>
+</body>
+</html>
